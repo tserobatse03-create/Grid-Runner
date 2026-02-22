@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRID RUNNER</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #000; color: #fff; }
+        #gameArea { width: 800px; height: 600px; margin: auto; border: 1px solid #fff; position: relative; overflow: hidden; }
+        .player { width: 50px; height: 50px; background: red; position: absolute; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to GRID RUNNER!</h1>
+    <div id="gameArea">
+        <div class="player" id="player"></div>
+    </div>
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const player = document.getElementById('player');
+        let playerPos = { x: 0, y: 0 };
+        const moveDistance = 10;
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    playerPos.y = Math.max(0, playerPos.y - moveDistance);
+                    break;
+                case 'ArrowDown':
+                    playerPos.y = Math.min(gameArea.clientHeight - 50, playerPos.y + moveDistance);
+                    break;
+                case 'ArrowLeft':
+                    playerPos.x = Math.max(0, playerPos.x - moveDistance);
+                    break;
+                case 'ArrowRight':
+                    playerPos.x = Math.min(gameArea.clientWidth - 50, playerPos.x + moveDistance);
+                    break;
+            }
+            updatePlayerPosition();
+        });
+
+        function updatePlayerPosition() {
+            player.style.transform = `translate(${playerPos.x}px, ${playerPos.y}px)`;
+        }
+    </script>
+</body>
+</html>
